@@ -1,8 +1,23 @@
 <h2>文章列表</h2>
-<ul>
-    <% site.posts.forEach(function(post) { %>
-        <li>
-            <a href="<%- url_for(post.path) %>"><%= post.title %></a>
-        </li>
-    <% }); %>
-</ul>
+<div class="post-list">
+  <% page.posts.forEach(function(post) { %>
+    <article class="post-card">
+      <h3><a href="<%- url_for(post.path) %>"><%= post.title %></a></h3>
+      <time><%= date(post.date, 'YYYY-MM-DD') %></time>
+      <div class="post-excerpt">
+        <%- post.excerpt || strip_html(post.content).substring(0, 150) + '...' %>
+      </div>
+      <a href="<%- url_for(post.path) %>" class="read-more">阅读全文 &rarr;</a>
+    </article>
+  <% }); %>
+</div>
+
+<div class="pagination">
+  <% if (page.prev) { %>
+    <a href="<%- url_for(page.prev_link) %>">&laquo; 上一页</a>
+  <% } %>
+  <span>第 <%= page.current %> / <%= page.total %> 页</span>
+  <% if (page.next) { %>
+    <a href="<%- url_for(page.next_link) %>">下一页 &raquo;</a>
+  <% } %>
+</div>
