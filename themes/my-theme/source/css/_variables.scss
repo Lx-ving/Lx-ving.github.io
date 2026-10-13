@@ -1,0 +1,16 @@
+:root {
+  --color-primary: #3b82f6;
+  --color-bg: #ffffff;
+  --color-text: #1f2937;
+  --color-text-secondary: #6b7280;
+  --color-border: #e5e7eb;
+  --font-family: system-ui, -apple-system, sans-serif;
+  --max-width: 800px;
+}
+
+[data-theme="dark"] {
+  --color-bg: #111827;
+  --color-text: #f9fafb;
+  --color-text-secondary: #9ca3af;
+  --color-border: #374151;
+}

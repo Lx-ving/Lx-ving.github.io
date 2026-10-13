@@ -1,0 +1,6 @@
+@use "variables" as *;
+@use "base";
+
+body { max-width: var(--max-width); margin: 0 auto; padding: 2rem 1rem; }
+header { border-bottom: 1px solid var(--color-border); padding-bottom: 1rem; margin-bottom: 2rem; }
+footer { border-top: 1px solid var(--color-border); margin-top: 2rem; padding-top: 1rem; color: var(--color-text-secondary); font-size: 0.875rem; }
