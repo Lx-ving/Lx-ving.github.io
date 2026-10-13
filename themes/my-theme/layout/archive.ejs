@@ -1,9 +1,28 @@
-<h2>归档</h2>
-<div class="archive-list">
-  <% page.posts.each(function(post) { %>
-    <div class="archive-item">
-      <time><%= date(post.date, 'YYYY-MM-DD') %></time>
-      <a href="<%- url_for(post.path) %>"><%= post.title %></a>
-    </div>
+<h2 class="page-title">归档</h2>
+<% 
+  var postsByYear = {};
+  page.posts.each(function(post) {
+    var year = date(post.date, 'YYYY');
+    if (!postsByYear[year]) postsByYear[year] = [];
+    postsByYear[year].push(post);
+  });
+  var years = Object.keys(postsByYear).sort().reverse();
+%>
+<div class="archive-container">
+  <% years.forEach(function(year) { %>
+    <details class="archive-year" open>
+      <summary>
+        <span><%= year %> 年</span>
+        <span class="archive-count"><%= postsByYear[year].length %> 篇</span>
+      </summary>
+      <div class="archive-list">
+        <% postsByYear[year].forEach(function(post) { %>
+          <div class="archive-item">
+            <time><%= date(post.date, 'MM-DD') %></time>
+            <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+          </div>
+        <% }); %>
+      </div>
+    </details>
   <% }); %>
 </div>
