@@ -47,9 +47,17 @@
     </main>
 
     <footer role="contentinfo">
-        <p>&copy; <%= new Date().getFullYear() %> <%= config.author %>. All rights reserved.</p>
+        <%
+          // 计算站点运行天数（安全写法，如果没配置 since 就默认 0 天）
+          var sinceDate = new Date('2026-10-13'); // 可以在 _config.yml 里配置 site.since 覆盖它
+          var now = new Date();
+          var days = Math.floor((now - sinceDate) / (1000 * 60 * 60 * 24));
+        %>
+        <p>&copy; <%= new Date().getFullYear() %> <%= config.author || 'Lx-ving' %>. All rights reserved.</p>
         <p style="margin-top: 0.5rem; font-size: 0.8rem;">
-            Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | <a href="/atom.xml">RSS</a>
+            已稳定运行 <strong><%= days %></strong> 天 | 
+            Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | 
+            <a href="/atom.xml">RSS</a>
         </p>
     </footer>
     <script src="/js/main.js"></script>

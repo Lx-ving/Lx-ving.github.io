@@ -40,6 +40,13 @@
   </div>
 </article>
 
+<!-- 版权声明 -->
+<section class="copyright">
+  <p><strong>版权声明：</strong>本文作者：<%= config.author || 'Lx-ving' %>，转载请注明出处。</p>
+  <p>本文链接：<a href="<%- shareUrl %>"><%- shareUrl %></a></p>
+  <p>许可协议：<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></p>
+</section>
+
 <nav class="post-nav">
   <% if (page.prev) { %>
     <a href="<%- url_for(page.prev.path) %>" class="post-nav-prev">&larr; <%= page.prev.title %></a>
