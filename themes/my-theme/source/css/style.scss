@@ -178,3 +178,22 @@ footer {
 .copyright p { margin-bottom: 0.25rem; }
 .copyright a { color: var(--color-text-secondary); text-decoration: underline; }
 .copyright a:hover { color: var(--color-primary); }
+
+/* 图片骨架屏 */
+.post-content img.skeleton {
+  background: linear-gradient(90deg, var(--color-border) 25%, var(--color-bg-secondary) 50%, var(--color-border) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  color: transparent; /* 隐藏 alt 文字 */
+}
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.post-content img {
+  opacity: 0;
+  transition: opacity 0.4s ease-in;
+}
+.post-content img.loaded {
+  opacity: 1;
+}
