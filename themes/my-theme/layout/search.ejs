@@ -1,0 +1,37 @@
+<div class="search-container">
+  <input type="text" id="search-input" placeholder="输入关键词搜索文章...">
+  <div id="search-results"></div>
+</div>
+
+<script>
+  document.getElementById('search-input').addEventListener('input', function (e) {
+    var query = e.target.value.trim().toLowerCase();
+    var resultsContainer = document.getElementById('search-results');
+    if (!query) { resultsContainer.innerHTML = ''; return; }
+    resultsContainer.innerHTML = '搜索中...';
+    fetch('/search.xml')
+      .then(response => response.text())
+      .then(str => {
+        var parser = new DOMParser();
+        var xmlDoc = parser.parseFromString(str, 'text/xml');
+        var posts = Array.from(xmlDoc.getElementsByTagName('entry'));
+        var results = posts.filter(post => {
+          var title = post.getElementsByTagName('title')[0].textContent.toLowerCase();
+          var content = post.getElementsByTagName('content')[0].textContent.toLowerCase();
+          return title.includes(query) || content.includes(query);
+        });
+        if (results.length === 0) {
+          resultsContainer.innerHTML = '<p>没有找到相关文章。</p>';
+          return;
+        }
+        resultsContainer.innerHTML = results.map(post => {
+          var title = post.getElementsByTagName('title')[0].textContent;
+          var url = post.getElementsByTagName('link')[0].getAttribute('href');
+          return '<div class="search-item"><a href="' + url + '">' + title + '</a></div>';
+        }).join('');
+      })
+      .catch(() => {
+        resultsContainer.innerHTML = '<p>搜索出错，请刷新页面重试。</p>';
+      });
+  });
+</script>

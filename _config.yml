@@ -105,3 +105,8 @@ deploy:
   type: git
   repository: git@github.com:Lx-ving/Lx-ving.github.io.git
   branch: main
+  search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
