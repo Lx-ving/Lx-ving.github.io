@@ -139,3 +139,37 @@ footer { border-top: 1px solid var(--color-border); margin-top: 2rem; padding-to
 @media (max-width: 768px) {
   .post-toc { display: none; }
 }
+
+/* 无障碍：跳转链接 */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 0; }
+
+/* 键盘导航：可见的焦点环 */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* 平滑滚动 */
+html { scroll-behavior: smooth; }
+
+/* 尊重系统“减少动画”偏好 */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 补充文章图片的基础响应式 */
+.post-content img { max-width: 100%; height: auto; }
