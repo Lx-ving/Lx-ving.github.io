@@ -1,0 +1,8 @@
+<h2 class="page-title">分类</h2>
+<div class="tag-cloud">
+  <% site.categories.forEach(function(cat) { %>
+    <a href="<%- url_for(cat.path) %>" class="tag-item">
+      📁 <%= cat.name %> <span class="tag-count"><%= cat.posts.length %></span>
+    </a>
+  <% }); %>
+</div>
