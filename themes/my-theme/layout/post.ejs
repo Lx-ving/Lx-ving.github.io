@@ -1,9 +1,32 @@
+<%
+  var contentText = strip_html(page.content) || '';
+  var readTime = Math.ceil(contentText.length / 400) || 1;
+  var wordCount = contentText.length || 0;
+  var shareUrl = config.url + url_for(page.path);
+  var shareTitle = page.title;
+  var hasUpdate = page.updated && page.updated != page.date;
+%>
+
 <article class="post">
   <header class="post-header">
     <h1><%= page.title %></h1>
-    <time><%= date(page.date, 'YYYY-MM-DD') %></time>
+    <div class="post-meta">
+      <time><%= date(page.date, 'YYYY-MM-DD') %></time>
+      <% if (hasUpdate) { %>
+        <span class="meta-dot">·</span>
+        <span class="update-time">最后更新于 <%= date(page.updated, 'YYYY-MM-DD') %></span>
+      <% } %>
+      <span class="meta-dot">·</span>
+      <span class="read-time">预计阅读：<%= readTime %> 分钟</span>
+      <span class="meta-dot">·</span>
+      <span class="word-count">共 <%= wordCount %> 字</span>
+    </div>
   </header>
-  
+
+  <% if (page.cover) { %>
+    <img src="<%- url_for(page.cover) %>" alt="<%= page.title %>" class="post-cover-full">
+  <% } %>
+
   <div class="post-body">
     <% if (page.toc !== false) { %>
       <aside class="post-toc">
@@ -25,4 +48,65 @@
     <a href="<%- url_for(page.next.path) %>" class="post-nav-next"><%= page.next.title %> &rarr;</a>
   <% } %>
 </nav>
+
+<!-- 社交分享 -->
+<section class="share-section">
+  <h3>分享这篇文章</h3>
+  <div class="share-buttons">
+    <button class="share-btn" id="share-native" aria-label="分享" title="分享">📤 分享</button>
+    <button class="share-btn" data-share="twitter" aria-label="分享到 Twitter" title="分享到 Twitter">𝕏 Twitter</button>
+    <button class="share-btn" data-share="weibo" aria-label="分享到微博" title="分享到微博">微博</button>
+    <button class="share-btn" id="share-copy" aria-label="复制链接" title="复制链接">🔗 复制链接</button>
+  </div>
+</section>
+
+<%
+var related = [];
+try {
+    if (page.tags && page.tags.length > 0) {
+        var currentTags = [];
+        page.tags.forEach(function(t) { currentTags.push(t.name); });
+        site.posts.forEach(function(p) {
+            if (p.path !== page.path) {
+                var pTags = [];
+                if (p.tags) { p.tags.forEach(function(t) { pTags.push(t.name); }); }
+                if (currentTags.some(function(t) { return pTags.indexOf(t) !== -1; })) {
+                    related.push(p);
+                }
+            }
+        });
+    }
+} catch(e) { console.log('Related posts error:', e); }
+
+if (related.length < 3) {
+    site.posts.forEach(function(p) {
+        if (p.path !== page.path && related.indexOf(p) === -1 && related.length < 3) {
+            related.push(p);
+        }
+    });
+}
+related = related.slice(0, 3);
+%>
+
+<% if (related.length > 0) { %>
+  <section class="related-posts">
+    <h3>推荐阅读</h3>
+    <div class="related-list">
+      <% related.forEach(function(post) { %>
+        <a href="<%- url_for(post.path) %>" class="related-item">
+          <h4><%= post.title %></h4>
+          <time><%= date(post.date, 'YYYY-MM-DD') %></time>
+        </a>
+      <% }); %>
+    </div>
+  </section>
+<% } %>
+
 <%- partial('comments') %>
+
+<script>
+  window.SHARE_DATA = {
+    url: '<%- shareUrl %>',
+    title: '<%= shareTitle %>'
+  };
+</script>

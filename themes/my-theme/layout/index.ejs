@@ -1,11 +1,44 @@
 <h2>文章列表</h2>
+<%
+  var stickyPosts = [];
+  var normalPosts = [];
+  page.posts.forEach(function(post) {
+    if (post.sticky) {
+      stickyPosts.push(post);
+    } else {
+      normalPosts.push(post);
+    }
+  });
+  var posts = stickyPosts.concat(normalPosts);
+%>
 <div class="post-list">
-  <% page.posts.forEach(function(post) { %>
+  <% posts.forEach(function(post) { %>
+    <%
+      var contentText = strip_html(post.content) || '';
+      var readTime = Math.ceil(contentText.length / 400) || 1;
+      var wordCount = contentText.length || 0;
+    %>
     <article class="post-card">
-      <h3><a href="<%- url_for(post.path) %>"><%= post.title %></a></h3>
-      <time><%= date(post.date, 'YYYY-MM-DD') %></time>
+      <% if (post.cover) { %>
+        <a href="<%- url_for(post.path) %>" class="post-cover-link">
+          <img src="<%- url_for(post.cover) %>" alt="<%= post.title %>" class="post-cover" loading="lazy">
+        </a>
+      <% } %>
+      <h3>
+        <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+        <% if (post.sticky) { %>
+          <span class="sticky-badge">置顶</span>
+        <% } %>
+      </h3>
+      <div class="post-meta">
+        <time><%= date(post.date, 'YYYY-MM-DD') %></time>
+        <span class="meta-dot">·</span>
+        <span class="read-time"><%= readTime %> 分钟阅读</span>
+        <span class="meta-dot">·</span>
+        <span class="word-count"><%= wordCount %> 字</span>
+      </div>
       <div class="post-excerpt">
-        <%- post.excerpt || strip_html(post.content).substring(0, 150) + '...' %>
+        <%- post.excerpt || contentText.substring(0, 150) + '...' %>
       </div>
       <a href="<%- url_for(post.path) %>" class="read-more">阅读全文 &rarr;</a>
     </article>

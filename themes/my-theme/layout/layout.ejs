@@ -16,18 +16,22 @@
     <meta property="og:site_name" content="<%= config.title %>">
     <meta property="og:description" content="<%= page.excerpt ? strip_html(page.excerpt).substring(0, 100) : config.description %>">
 
-    <!-- RSS 订阅自动发现 -->
+    <!-- 代码高亮 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <!-- RSS 订阅 -->
     <link rel="alternate" type="application/atom+xml" href="<%- url_for('/atom.xml') %>" title="<%= config.title %>">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <!-- 无障碍：跳转到主要内容 -->
     <a href="#main-content" class="skip-link">跳转到主要内容</a>
 
     <header role="banner">
         <div class="header-top">
             <h1><a href="/" style="color: inherit; text-decoration: none;"><%= config.title %></a></h1>
-            <button id="theme-toggle" class="theme-btn" aria-label="切换暗色模式">🌙</button>
+            <div class="header-buttons">
+                <button id="theme-toggle" class="theme-btn" aria-label="切换暗色模式">🌙</button>
+                <button id="mobile-menu-toggle" class="menu-btn" aria-label="切换菜单">☰</button>
+            </div>
         </div>
         <nav class="main-nav" role="navigation" aria-label="主导航">
             <a href="/">首页</a>
@@ -43,7 +47,10 @@
     </main>
 
     <footer role="contentinfo">
-        <p>&copy; <%= config.author %> | <a href="/atom.xml" style="color: inherit;">RSS</a></p>
+        <p>&copy; <%= new Date().getFullYear() %> <%= config.author %>. All rights reserved.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem;">
+            Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | <a href="/atom.xml">RSS</a>
+        </p>
     </footer>
     <script src="/js/main.js"></script>
 </body>

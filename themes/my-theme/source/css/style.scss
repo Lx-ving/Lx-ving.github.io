@@ -113,3 +113,8 @@ footer {
 @media (min-width: 769px) {
   .menu-btn { display: none; }
 }
+
+/* 字数统计样式 */
+.word-count {
+  color: var(--color-text-secondary);
+}
