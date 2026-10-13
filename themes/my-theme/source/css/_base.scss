@@ -1,12 +1,21 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: var(--font-family);
-  background: var(--color-bg);
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
   color: var(--color-text);
-  line-height: 1.6;
-  transition: background 0.3s, color 0.3s;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  transition: background-color 0.3s, color 0.3s;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-a { color: var(--color-primary); text-decoration: none; }
-a:hover { text-decoration: underline; }
+a { color: var(--color-primary); text-decoration: none; transition: opacity 0.2s; }
+a:hover { opacity: 0.8; }
+
+h1, h2, h3, h4 { line-height: 1.3; font-weight: 700; color: var(--color-text); }
+p { margin-bottom: 1.25rem; }
+
+code { font-family: var(--font-mono); }
