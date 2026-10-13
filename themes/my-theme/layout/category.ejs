@@ -1,0 +1,9 @@
+<h2>分类：<%= page.category %></h2>
+<div class="post-list">
+  <% page.posts.each(function(post) { %>
+    <article class="post-card">
+      <h3><a href="<%- url_for(post.path) %>"><%= post.title %></a></h3>
+      <time><%= date(post.date, 'YYYY-MM-DD') %></time>
+    </article>
+  <% }); %>
+</div>

@@ -53,3 +53,45 @@ footer { border-top: 1px solid var(--color-border); margin-top: 2rem; padding-to
   margin-top: 3rem;
   font-size: 0.95rem;
 }
+
+/* 导航栏 */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.header-top h1 { font-size: 1.5rem; }
+.theme-btn {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+.main-nav {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.95rem;
+}
+.main-nav a {
+  color: var(--color-text-secondary);
+  transition: color 0.2s;
+}
+.main-nav a:hover {
+  color: var(--color-primary);
+}
+
+/* 归档列表 */
+.archive-list { display: flex; flex-direction: column; gap: 1rem; }
+.archive-item {
+  display: flex;
+  gap: 1.5rem;
+  align-items: baseline;
+}
+.archive-item time {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  min-width: 90px;
+}

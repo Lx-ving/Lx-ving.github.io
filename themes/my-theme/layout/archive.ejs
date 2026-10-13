@@ -1,0 +1,9 @@
+<h2>归档</h2>
+<div class="archive-list">
+  <% page.posts.each(function(post) { %>
+    <div class="archive-item">
+      <time><%= date(post.date, 'YYYY-MM-DD') %></time>
+      <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+    </div>
+  <% }); %>
+</div>
