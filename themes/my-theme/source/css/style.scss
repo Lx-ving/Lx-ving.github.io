@@ -118,3 +118,48 @@ footer {
 .word-count {
   color: var(--color-text-secondary);
 }
+
+/* 移动端深度优化 */
+@media (max-width: 600px) {
+  /* 1. Hero 横幅紧凑化 */
+  .hero { padding: 2rem 1rem; margin-bottom: 2rem; }
+  .hero-title { font-size: 1.6rem; }
+  
+  /* 2. 文章卡片更紧凑，文字大小调整 */
+  .post-card { padding: 1.25rem; }
+  .post-card h3 { font-size: 1.2rem; }
+  
+  /* 3. 文章元数据（日期、字数）优雅换行 */
+  .post-meta { flex-wrap: wrap; gap: 0.4rem; font-size: 0.8rem; }
+  .post-meta .meta-dot { display: none; } /* 手机上隐藏间隔点，靠空格分隔 */
+  .post-meta time, .post-meta span { margin-right: 0.5rem; }
+  
+  /* 4. 文章详情的目录隐藏，主体占满宽度 */
+  .post-body { flex-direction: column; }
+  .post-toc { display: none; }
+  .post-content { font-size: 1rem; }
+  
+  /* 5. 归档折叠页更方便点击 */
+  .archive-year { padding: 1rem; }
+  .archive-year summary { font-size: 1rem; }
+  .archive-item { flex-direction: column; gap: 0.25rem; padding-left: 0.5rem; }
+  .archive-item time { min-width: auto; }
+  
+  /* 6. 页脚文字变小，避免拥挤 */
+  footer { padding: 1.5rem 1rem; font-size: 0.75rem; }
+}
+
+/* 移动端导航展开动画优化 */
+@media (max-width: 768px) {
+  .main-nav {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+    animation: fadeInDown 0.3s ease;
+  }
+  .main-nav.active { display: flex; }
+  .main-nav a { padding: 0.25rem 0; } /* 增加点击区域 */
+}
