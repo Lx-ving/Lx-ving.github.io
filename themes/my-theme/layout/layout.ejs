@@ -2,7 +2,23 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title><%= config.title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 基础 SEO -->
+    <title><%= page.title ? page.title + ' | ' + config.title : config.title %></title>
+    <meta name="description" content="<%= page.excerpt ? strip_html(page.excerpt).substring(0, 100) : config.description %>">
+    <!-- 简化 keywords，不折腾 page.tags，避免报错 -->
+    <meta name="keywords" content="<%= config.keywords || '' %>">
+
+    <!-- Open Graph 社交分享标签 -->
+    <meta property="og:type" content="<%= page.layout === 'post' ? 'article' : 'website' %>">
+    <meta property="og:title" content="<%= page.title ? page.title : config.title %>">
+    <meta property="og:url" content="<%- config.url + url_for(page.path) %>">
+    <meta property="og:site_name" content="<%= config.title %>">
+    <meta property="og:description" content="<%= page.excerpt ? strip_html(page.excerpt).substring(0, 100) : config.description %>">
+
+    <!-- RSS 订阅自动发现 -->
+    <link rel="alternate" type="application/atom+xml" href="<%- url_for('/atom.xml') %>" title="<%= config.title %>">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -23,7 +39,7 @@
         <%- body %>
     </main>
     <footer>
-        <p>&copy; <%= config.author %></p>
+        <p>&copy; <%= config.author %> | <a href="/atom.xml" style="color: inherit;">RSS</a></p>
     </footer>
     <script src="/js/main.js"></script>
 </body>
